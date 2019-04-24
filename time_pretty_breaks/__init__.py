@@ -1,7 +1,7 @@
 import numpy as np
 
 from dateutil.rrule import rrule
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 
 
 def nicenumber(x):
@@ -110,3 +110,31 @@ def nice_dt_intervals(begin: datetime, end: datetime, bins: int):
                       dtstart=start,
                       until=end,
                       interval=res_multiplier))
+
+
+def nice_time_intervals(begin: time, end: time, bins: int):
+    """
+    Split time range into pretty intervals (by integer number of hours,
+    minutes, seconds) number of intervals is close to bins number.
+
+    :param begin: interval begin
+    :param end: interval end
+    :param bins: approximate amount of bins
+    """
+    begin_dt = datetime.min.replace(
+        hour=begin.hour,
+        minute=begin.minute,
+        second=begin.second,
+        microsecond=begin.microsecond
+    )
+
+    end_dt = datetime.min.replace(
+        hour=end.hour,
+        minute=end.minute,
+        second=end.second,
+        microsecond=end.microsecond
+    )
+
+    intervals = nice_dt_intervals(begin_dt, end_dt, bins)
+
+    return [interval.time() for interval in intervals]

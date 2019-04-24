@@ -5,7 +5,7 @@ except ImportError:
 
 setup(
     name='time-pretty-breaks',
-    version='0.1',
+    version='0.1.1',
     description='Split time, date and datetime intervals into '
     '"pretty" intervals',
     long_description=open('README.md').read(),
